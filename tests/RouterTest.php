@@ -88,6 +88,9 @@ class RouterTest extends \PHPUnit_Framework_TestCase
                 }
             }
             foreach ($row as $cell_key => $cell) {
+                if ($cell == '1,000.00000') {
+                    $cell = '-';
+                }
                 if ($cell == $row_min) {
                     $table .= "\e[1;32m". str_pad($cell, $columns[$cell_key]) . '   ';
                 } else {
