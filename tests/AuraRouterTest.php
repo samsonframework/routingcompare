@@ -39,14 +39,14 @@ class AuraRouterTest extends \PHPUnit_Framework_TestCase
             'inner-page'                    => ['GET','/{page}', '/text-page'],
             'user-home'                     => ['GET','/user/', '/user/'],
             //'user-home-without-slash'       => ['GET','/user'],
-            //'user-winners-slash'            => ['GET','/user/winners/'],
+            'user-winners-slash'            => ['GET','/user/winners/', '/user/winners/'],
             'user-by-id'                    => ['GET','/user/{id}', '/user/123'],
             //'user-by-gender-age'            => ['GET','/user/{gender:male|female}/{age}', '/user/male/19d'],
             //'user-by-gender-age-filtered'   => ['GET','/user/{gender:male|female}/{age:[0-9]+}', '/user/female/8'],
             'user-by-id-form'               => ['GET','/user/{id}/form', '/user/123/form'],
             'user-by-id-friends'            => ['GET','/user/{id}/friends', '/user/123/friends'],
             'user-by-id-friends-with-id'    => ['GET','/user/{id}/friends/{groupid}', '/user/123/friends/1'],
-            //'entity-by-id-form'             => ['GET','/{entity}/{id}/form'],
+            'entity-by-id-form'             => ['GET','/{entity}/{id}/form', '/entity/123/form'],
             //'entity-by-id-form-test'        => ['GET','/{id}/test/{page:\d+}'],
             //'two-params'                    => ['GET','/{num}/{page:\d+}'],
             //'user-by-id-node'               => ['GET','/user/{id}/n"$ode'],
@@ -83,23 +83,20 @@ class AuraRouterTest extends \PHPUnit_Framework_TestCase
         $iterationsCount = 1000;
         for ($i=0; $i < $iterationsCount; $i++) {
             foreach ($routeArray as $identifier => $routeData) {
-                if (isset($routeData[2])) {
-                    $request = $this->newRequest($routeData[1]);
-                    $timestamp = microtime(true);
-                    /** @var \Aura\Router\Route $auraRoute */
-                    $auraRoute = $matcher->match($request);
-                    $elapsedAura[$routeData[1]][] = microtime(true) - $timestamp;
-                    $this->assertEquals($auraRoute->name, $identifier);
-                }
+                var_dump($identifier);
+                $request = $this->newRequest($routeData[1]);
+                $timestamp = microtime(true);
+                /** @var \Aura\Router\Route $auraRoute */
+                $auraRoute = $matcher->match($request);
+                $elapsedAura[$routeData[1]][] = microtime(true) - $timestamp;
+                $this->assertEquals($auraRoute->name, $identifier);
             }
 
             foreach ($routeArray as $identifier => $routeData) {
-                if (isset($routeData[2])) {
-                    $timestamp = microtime(true);
-                    $routeInfo = $routerLogicFunction($routeData[2], $routeData[0]);
-                    $elapsedSamson[$routeData[1]][] = microtime(true) - $timestamp;
-                    $this->assertEquals($routeInfo[0], $identifier);
-                }
+                $timestamp = microtime(true);
+                $routeInfo = $routerLogicFunction($routeData[2], $routeData[0]);
+                $elapsedSamson[$routeData[1]][] = microtime(true) - $timestamp;
+                $this->assertEquals($routeInfo[0], $identifier);
             }
         }
 
