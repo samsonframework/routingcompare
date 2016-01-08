@@ -83,7 +83,6 @@ class AuraRouterTest extends \PHPUnit_Framework_TestCase
         $iterationsCount = 1000;
         for ($i=0; $i < $iterationsCount; $i++) {
             foreach ($routeArray as $identifier => $routeData) {
-                var_dump($identifier);
                 $request = $this->newRequest($routeData[1]);
                 $timestamp = microtime(true);
                 /** @var \Aura\Router\Route $auraRoute */
