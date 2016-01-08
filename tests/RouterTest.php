@@ -13,6 +13,7 @@ require_once "SamsonImplementation.php";
 require_once "SymfonyImplementation.php";
 require_once "FastRouteImplementation.php";
 require_once "AuraImplementation.php";
+require_once "AltoImplementation.php";
 
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,6 +46,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->tests[] = new SymfonyImplementation($this->routes);
         $this->tests[] = new FastRouteImplementation($this->routes);
         $this->tests[] = new AuraImplementation($this->routes);
+        $this->tests[] = new AltoImplementation($this->routes);
 
         $table = ['header' => ['route']];
         foreach ($this->tests as $test) {

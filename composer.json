@@ -17,7 +17,8 @@
     "nikic/fast-route": "^0.7.0",
     "aura/router": "*",
     "zendframework/zend-diactoros": "*",
-    "symfony/routing": "*"
+    "symfony/routing": "*",
+    "altorouter/altorouter": "*"
   },
   "minimum-stability": "dev",
   "license": "Open Software License (OSL) v 3.0",
