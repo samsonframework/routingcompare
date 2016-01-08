@@ -25,11 +25,6 @@ class SymfonyRouterTest extends \PHPUnit_Framework_TestCase
         return ServerRequestFactory::fromGlobals($server);
     }
 
-    public function baseCallback()
-    {
-        return __FUNCTION__;
-    }
-
     public function testPerformance()
     {
         // Create routes descriptions with identifiers
