@@ -1,0 +1,29 @@
+{
+  "name": "samsonframework/routingcompare",
+  "description": "SamsonFramework routing compare package",
+  "keywords": [
+    "router",
+    "routing"
+  ],
+  "authors": [
+    {
+      "name": "Vitaly Iegorov",
+      "email": "egorov@samsonos.com"
+    }
+  ],
+  "require-dev": {
+    "samsonframework/routing":"*",
+    "phpunit/phpunit": "4.*",
+    "nikic/fast-route": "^0.7.0"
+  },
+  "minimum-stability": "dev",
+  "license": "Open Software License (OSL) v 3.0",
+  "homepage": "http://samsonos.com/",
+  "config":{
+    "github-protocols":["https"]
+  },
+  "extra": { 
+    "samsonphp_package_compressable": "1", 
+    "samson_module_include": "1"
+  }
+}
