@@ -12,6 +12,7 @@ require_once "RouterImplementation.php";
 require_once "SamsonImplementation.php";
 require_once "SymfonyImplementation.php";
 require_once "FastRouteImplementation.php";
+require_once "AuraImplementation.php";
 
 class RouterTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,29 +44,57 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         $this->tests[] = new SamsonImplementation($this->routes);
         $this->tests[] = new SymfonyImplementation($this->routes);
         $this->tests[] = new FastRouteImplementation($this->routes);
+        $this->tests[] = new AuraImplementation($this->routes);
 
-        echo '+';
+        $table = ['header' => ['route']];
         foreach ($this->tests as $test) {
-            echo "\t"."+";
+            $table['header'][] = $test->name;
         }
-        echo "\n";
-
-        foreach ($this->tests as $test) {
-            echo '+ '.$test->name."\t";
-        }
-        echo "\n";
-
         foreach ($this->routes as $identifier => $routeData) {
+            $table[$identifier][] = $identifier;
             foreach ($this->tests as $test) {
                 $test->iterate($identifier, $routeData);
             }
             foreach ($this->tests as $test) {
                 $test->calculate();
+                $table[$identifier][$test->name] = $test->averageResults[$identifier];
             }
-            foreach ($this->tests as $test) {
-                echo $test->averageResults[$identifier]."\t".'+';
-            }
-            echo "\n";
         }
+        echo $this->table($table);
+    }
+
+    function table($data) {
+
+        // Find longest string in each column
+        $columns = [];
+        foreach ($data as $row_key => $row) {
+            foreach ($row as $cell_key => $cell) {
+                $length = strlen($cell);
+                if (empty($columns[$cell_key]) || $columns[$cell_key] < $length) {
+                    $columns[$cell_key] = $length;
+                }
+            }
+        }
+
+        // Output table, padding columns
+        $table = '';
+        foreach ($data as $row_key => $row) {
+            $row_min = 1000;
+            foreach ($row as $item) {
+                if (is_numeric($item) && $item < $row_min) {
+                    $row_min = $item;
+                }
+            }
+            foreach ($row as $cell_key => $cell) {
+                if ($cell == $row_min) {
+                    $table .= "\e[1;32m". str_pad($cell, $columns[$cell_key]) . '   ';
+                } else {
+                    $table .= "\033[0m". str_pad($cell, $columns[$cell_key]) . '   ';
+                }
+            }
+            $table .= PHP_EOL;
+        }
+        return $table;
+
     }
 }
