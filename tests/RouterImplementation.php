@@ -12,7 +12,7 @@ namespace samsonframework\routing\tests;
 class RouterImplementation
 {
     /** @var int Count of iterations for each route */
-    public $iterationCount = 500;
+    public $iterationCount = 5;
 
     /** @var array Results for each route */
     public $results = [];

@@ -31,7 +31,8 @@ class FastRouteImplementation extends RouterImplementation
             $url = rawurldecode(parse_url($routeData[2], PHP_URL_PATH));
             $timestamp = microtime(true);
             $routeInfo = $this->collection->dispatch($routeData[0], $url);
-            if ($routeInfo[1] == $identifier) {
+
+            if (isset($routeInfo[1]) && $routeInfo[1] == $identifier) {
                 $this->results[$identifier][] = microtime(true) - $timestamp;
             } else {
                 $this->results[$identifier][] = 1000;
