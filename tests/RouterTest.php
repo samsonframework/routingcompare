@@ -21,7 +21,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase
         'main-page'                     => ['GET', '/', '/'],
         'inner-page'                    => ['GET','/{page}', '/text-page'],
         'user-home'                     => ['GET','/user/', '/user/'],
-        //'user-home-without-slash'       => ['GET','/user'],
+        'user-home'                     => ['GET','/user/', '/user/'],
         'user-winners-slash'            => ['GET','/user/winners/', '/user/winners/'],
         'user-by-id'                    => ['GET','/user/{id}', '/user/123'],
         'user-by-gender-age'            => ['GET','/user/{gender:male|female}/{age}', '/user/male/19d'],

@@ -12,7 +12,7 @@ namespace samsonframework\routing\tests;
 class RouterImplementation
 {
     /** @var int Count of iterations for each route */
-    public $iterationCount = 5;
+    public $iterationCount = 500;
 
     /** @var array Results for each route */
     public $results = [];
@@ -55,13 +55,19 @@ class RouterImplementation
     {
         $this->averageResults = [];
 
+        $lowest = [];
         foreach ($this->results as $step => $iterations) {
+            $lowest[$step] = 1000;
             $this->averageResults[$step] = 0;
             for ($i = 0; $i < $this->iterationCount; $i++) {
                 $this->averageResults[$step] += $this->results[$step][$i];
+                if ($lowest[$step] > $this->results[$step][$i]) {
+                    $lowest[$step] = $this->results[$step][$i];
+                }
             }
 
             $this->averageResults[$step] = number_format($this->averageResults[$step] / $this->iterationCount, 5);
+            //$this->averageResults[$step] = number_format($lowest[$step], 5);
         }
     }
 }
