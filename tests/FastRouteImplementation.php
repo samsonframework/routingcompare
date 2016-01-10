@@ -25,18 +25,19 @@ class FastRouteImplementation extends RouterImplementation
         }, ['cacheFile' => __DIR__ . '/route.cache']);
     }
 
-    public function iterate($identifier, $routeData)
+    /**
+     * Dispatch route from collection.
+     *
+     * @param array $routeData Route info
+     * @return array Dispatched route info
+     */
+    public function dispatch($routeData)
     {
-        for ($i = 0; $i < $this->iterationCount; $i++) {
-            $url = rawurldecode(parse_url($routeData[2], PHP_URL_PATH));
-            $timestamp = microtime(true);
-            $routeInfo = $this->collection->dispatch($routeData[0], $url);
-
-            if (isset($routeInfo[1]) && $routeInfo[1] == $identifier) {
-                $this->results[$identifier][] = microtime(true) - $timestamp;
-            } else {
-                $this->results[$identifier][] = 1000;
-            }
+        $routeInfo = $this->collection->dispatch($routeData[0], $routeData[2]);
+        if (isset($routeInfo[1])) {
+            return $routeInfo;
         }
+
+        return null;
     }
 }

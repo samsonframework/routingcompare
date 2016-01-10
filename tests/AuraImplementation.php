@@ -38,6 +38,17 @@ class AuraImplementation extends RouterImplementation
         $this->matcher = $routerContainer->getMatcher();
     }
 
+    /**
+     * Dispatch route from collection.
+     *
+     * @param array $routeData Route info
+     * @return array Dispatched route info
+     */
+    public function dispatch($routeData)
+    {
+        return $this->matcher->match($request);
+    }
+
     public function iterate($identifier, $routeData)
     {
         for ($i = 0; $i < $this->iterationCount; $i++) {
