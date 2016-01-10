@@ -5,14 +5,13 @@
  * Date: 08.01.2016
  * Time: 13:32
  */
-
 namespace samsonframework\routing\tests;
 
 
-class RouterImplementation
+abstract class RouterImplementation
 {
     /** @var int Count of iterations for each route */
-    public $iterationCount = 500;
+    public $iterationCount = 1000;
 
     /** @var array Results for each route */
     public $results = [];
@@ -23,12 +22,16 @@ class RouterImplementation
     /** @var string Test name */
     public $name = 'Test';
 
+    /** @var array Routes collection */
     public $collection;
 
-    public function __construct($routes)
-    {
-    }
 
+    /**
+     * Router dispatching testing iteration.
+     *
+     * @param string $identifier Route identifier
+     * @param string $routeData Route path to dispatch
+     */
     public function iterate($identifier, $routeData)
     {
         for ($i = 0; $i < $this->iterationCount; $i++) {
@@ -39,14 +42,12 @@ class RouterImplementation
     }
 
     /**
-     * Dispatch route from collection
+     * Dispatch route from collection.
+     *
      * @param array $routeData Route info
-     * @return string
+     * @return array Dispatched route info
      */
-    public function dispatch($routeData)
-    {
-        return '';
-    }
+    public abstract function dispatch($routeData);
 
     /**
      * Calculate average results
@@ -56,18 +57,27 @@ class RouterImplementation
         $this->averageResults = [];
 
         $lowest = [];
+        $highest = [];
+        // Iterate routes
         foreach ($this->results as $step => $iterations) {
             $lowest[$step] = 1000;
+            $highest[$step] = 0;
             $this->averageResults[$step] = 0;
-            for ($i = 0; $i < $this->iterationCount; $i++) {
-                $this->averageResults[$step] += $this->results[$step][$i];
-                if ($lowest[$step] > $this->results[$step][$i]) {
-                    $lowest[$step] = $this->results[$step][$i];
+
+            // Iterate route results
+            foreach ($iterations as $elapsed) {
+                $this->averageResults[$step] += $elapsed;
+                if ($lowest[$step] > $elapsed) {
+                    $lowest[$step] = $elapsed;
+                }
+                if ($highest[$step] < $elapsed) {
+                    $highest[$step] = $elapsed;
                 }
             }
 
             $this->averageResults[$step] = number_format($this->averageResults[$step] / $this->iterationCount, 5);
             //$this->averageResults[$step] = number_format($lowest[$step], 5);
+            //$this->averageResults[$step] = number_format($highest[$step], 5);
         }
     }
 }
