@@ -5,10 +5,7 @@
  * Date: 08.01.2016
  * Time: 13:46
  */
-
 namespace samsonframework\routing\tests;
-
-
 
 use Aura\Router\Matcher;
 use Aura\Router\RouterContainer;
