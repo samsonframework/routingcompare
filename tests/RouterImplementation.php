@@ -11,7 +11,7 @@ namespace samsonframework\routing\tests;
 abstract class RouterImplementation
 {
     /** @var int Count of iterations for each route */
-    public $iterationCount = 10;
+    public $iterationCount = 100;
 
     /** @var array Results for each route */
     public $results = [];
@@ -34,11 +34,22 @@ abstract class RouterImplementation
      */
     public function iterate($identifier, $routeData)
     {
+        $this->beforeDispatch($routeData);
         for ($i = 0; $i < $this->iterationCount; $i++) {
             $timestamp = microtime(true);
             $routeInfo = $this->dispatch($routeData);
             $this->results[$identifier][] = !empty($routeInfo) ? microtime(true) - $timestamp : 1000;
         }
+    }
+
+    /**
+     * Pre-dispatcher.
+     *
+     * @param array $routeData Route info
+     */
+    public function beforeDispatch(&$routeData)
+    {
+
     }
 
     /**

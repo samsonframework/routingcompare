@@ -43,6 +43,11 @@ class SamsonImplementation extends RouterImplementation
         require(__DIR__ . '/testLogic.php');
     }
 
+    public function beforeDispatch(&$routeData)
+    {
+        $routeData[2] = rtrim(strtok($routeData[0].'/'.ltrim($routeData[2], '/'), '?'), '/');
+    }
+
     public function dispatch($routeData)
     {
         return call_user_func_array($this->routerLogicFunction, array($routeData[2], $routeData[0]));
