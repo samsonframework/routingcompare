@@ -45,7 +45,7 @@ class SamsonImplementation extends RouterImplementation
 
     public function beforeDispatch(&$routeData)
     {
-        $routeData[2] = rtrim(strtok($routeData[0].'/'.ltrim($routeData[2], '/'), '?'), '/');
+        $routeData[2] = rtrim(strtok(ltrim($routeData[2], '/'), '?'), '/');
     }
 
     public function dispatch($routeData)
