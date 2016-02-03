@@ -3,7 +3,7 @@ vendor/*
 upload/*
 cache/*
 www/cache/*
-www/cms/*
+www/cms/*»
 www/upload/*
 cms/cache/*
 cms/upload/* 
