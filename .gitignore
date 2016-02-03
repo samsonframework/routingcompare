@@ -2,12 +2,7 @@
 .idea/*
 build/*
 vendor/*
-upload/*
-cache/*
 www/cache/*
-www/cms/*»
 www/upload/*
-cms/cache/*
-cms/upload/* 
 composer.lock
 composer.phar
