@@ -18,6 +18,7 @@
     "aura/router": "*",
     "zendframework/zend-diactoros": "*",
     "symfony/routing": "*",
+    "symfony/config": "*",
     "altorouter/altorouter": "*"
   },
   "minimum-stability": "dev",
